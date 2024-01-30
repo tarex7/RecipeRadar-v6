@@ -1,4 +1,7 @@
 <script setup>
+import HeroSection from '@/Components/HeroSection.vue';
+import List from '@/Components/List.vue';
+import SearchBar from '@/Components/SearchBar.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
 defineProps({
@@ -24,10 +27,11 @@ defineProps({
 
     <v-app>
         <v-container>
-          <v-btn color="primary">Primary Button</v-btn>
-          <v-text-field label="Label"></v-text-field>
+        <HeroSection />
+        <List />
         </v-container>
       </v-app>
+      
 </template>
 
 <style>
