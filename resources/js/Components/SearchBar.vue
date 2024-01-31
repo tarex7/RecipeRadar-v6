@@ -7,13 +7,15 @@
   
 <script>
 import {
-    ref
+    onMounted,ref
 } from 'vue';
 import axios from 'axios';
+import { useStore } from 'vuex';
 
 export default {
     name: "SearchBar",
     setup() {
+        const store = useStore();
         const searchQuery = ref('');
         const recipes = ref([
         ]);
@@ -41,7 +43,8 @@ export default {
                 console.log('Risultati della ricerca:', response.data);
                 // Qui puoi gestire i dati della risposta, come aggiornare lo stato del componente
                 // o navigare a una pagina di risultati
-                recipes.value = response.data.hits
+                //recipes.value = response.data.hits
+                store.commit('setSearchResults',response.data.hits)
                 console.log("recipes", recipes.value)
             } catch (error) {
                 console.error('Errore nella chiamata API:', error);
@@ -49,11 +52,15 @@ export default {
             }
         }
 
+       
+
+
         return {
             searchQuery,
             onSearch,
             recipes
         }
+
     }
 }
 </script>
