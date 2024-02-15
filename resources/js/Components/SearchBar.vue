@@ -1,25 +1,35 @@
 <template>
-<v-text-field color="secondary" outlined v-model="searchQuery" append-icon="mdi-magnify" label="Cerca ricette" single-line hide-details @click:append="onSearch" @keyup.enter="onSearch"></v-text-field>
+<v-container class=" pa-5">
+    <v-row justify="center">
+        <v-col cols="12" md="6">
+            <v-text-field class="text-green custom-input" v-model="searchQuery" append-inner-icon="mdi-magnify" label="Cerca ricette" variant="solo-inverted" single-line hide-details @click:append="onSearch" @keyup.enter="onSearch"></v-text-field>
 
-
+        </v-col>
+    </v-row>
+</v-container>
 </template>
 
   
+  
+  
+  
 <script>
 import {
-    onMounted,ref
+    onMounted,
+    ref
 } from 'vue';
 import axios from 'axios';
-import { useStore } from 'vuex';
+import {
+    useStore
+} from 'vuex';
 
 export default {
     name: "SearchBar",
     setup() {
         const store = useStore();
         const searchQuery = ref('');
-        const recipes = ref([
-        ]);
-
+        const items = ref([]);
+        const nextPageUrl = ref(''); // Inizializza l'URL della prossima pagina
 
         async function onSearch() {
             if (!searchQuery.value) {
@@ -27,45 +37,62 @@ export default {
                 return;
             }
 
-            const EDAMAM_API_URL = 'https://api.edamam.com/search';
-            const APP_ID = 'badd694d'; // Sostituisci con il tuo App ID
-            const APP_KEY = '8b062e0d6c9f52fe8ec76e1ab1d47716'; // Sostituisci con la tua App Key
-
+           
+            const URL = `https://www.themealdb.com/api/json/v1/1/search.php?s=${encodeURIComponent(searchQuery.value)}`;
             try {
-                const response = await axios.get(EDAMAM_API_URL, {
-                    params: {
-                        q: searchQuery.value,
-                        app_id: APP_ID,
-                        app_key: APP_KEY
-                    }
-                });
+                const response = await axios.get(URL);
+                // Gestisci la risposta
+               
 
                 console.log('Risultati della ricerca:', response.data);
+              
+
                 // Qui puoi gestire i dati della risposta, come aggiornare lo stato del componente
                 // o navigare a una pagina di risultati
                 //recipes.value = response.data.hits
-                store.commit('setSearchResults',response.data.hits)
-                console.log("recipes", recipes.value)
+                store.commit('setSearchResults', response.data.meals)
+              
+                if (response.data._links && response.data._links.next) {
+                    nextPageUrl.value = response.data._links.next.href;
+                } else {
+                    nextPageUrl.value = ''; // Nessuna altra pagina da caricare
+                }
             } catch (error) {
                 console.error('Errore nella chiamata API:', error);
                 // Gestisci eventuali errori qui
             }
         }
 
-       
-
-
         return {
             searchQuery,
             onSearch,
-            recipes
+            items
         }
-
     }
 }
 </script>
-
+  
   
 <style>
-/* Aggiungi qui eventuali stili personalizzati se necessario */
+.custom-text-color .v-field__input,
+.custom-text-color input {
+    color: #4c4eaf;
+    /* Sostituisci con il colore che preferisci */
+}
+
+.text-green input {
+    color: green !important;
+}
+
+.custom-input {
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
+}
+
+.v-text-field,
+.v-text-field {
+
+    background-color: transparent !important;
+    border: 2px transparent solid;
+}
 </style>

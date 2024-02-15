@@ -1,10 +1,11 @@
 <template>
     <v-container fluid>
+     
       <v-row justify="center" align="center" class="hero-background">
-        <v-col cols="12" sm="8" md="6">
-          <h1 class="text-center hero-title">Benvenuti a Recipe Radar</h1>
+        <v-col  cols="12" sm="8" md="6">
+          <h1 class="text-center hero-title mt-5">Benvenuti a Recipe Radar</h1>
           <p class="text-center hero-subtitle">Trova le migliori ricette da tutto il mondo.</p>
-          <SearchBar /> <!-- Posiziona SearchBar qui -->
+          <SearchBar />
         </v-col>
       </v-row>
     </v-container>
@@ -23,10 +24,11 @@
   
   <style scoped>
   .hero-background {
-    background-image: url('C:\laravel\RecipeRadar\RecipeRadar-v6\public\build\assets\imgs\hero.jpg'); /* Aggiorna con il percorso dell'immagine di sfondo */
+    background-image: url('C:\laravel\RecipeRadar-v6\public\build\assets\imgs\hero.jpg'); /* Aggiorna con il percorso dell'immagine di sfondo */
     background-size: cover;
     background-position: center;
-    height: 250px; /* Regola l'altezza secondo le tue esigenze */
+    height: 400px; 
+    margin-top: 27px;
   }
   
   .hero-title {

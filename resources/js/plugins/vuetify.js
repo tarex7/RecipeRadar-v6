@@ -2,8 +2,9 @@
 import { createVuetify } from 'vuetify';
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import { aliases, fa } from 'vuetify/iconsets/fa';
 
-import colors from 'vuetify/util/colors'
 
 export default createVuetify({
     components,
@@ -26,4 +27,11 @@ export default createVuetify({
             },
         },
     },
+    icons: {
+        defaultSet: 'fa',
+        aliases,
+        sets: {
+          fa,
+        },
+      },
 })

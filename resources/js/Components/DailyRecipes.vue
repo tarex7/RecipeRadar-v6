@@ -1,5 +1,5 @@
 <template>
-<v-row justify="center">
+<v-row justify="center" class="mx-5">
     <v-col sm="2" class="mx-5" v-for="(recipe, index) in paginatedItems" :key="index">
 
         <a :href="`/show/${recipe.idMeal}`">
@@ -18,7 +18,7 @@ import {
     ref,
     computed,
     watch,
-    defineProps
+    onBeforeMount
 } from 'vue';
 import {
     useStore
@@ -33,9 +33,10 @@ import {
 //     router.visit(route(routeName));
 // }
 export default {
-    name: 'RecipeCardsWithPagination',
+    name: 'DailyRecipes',
     setup() {
         const store = useStore();
+        const recipe = ref([]);
         const itemsPerPage = 10; // Numero di ricette per pagina
         const currentPage = ref(1); // Pagina corrente iniziale
         const totalRecipes = ref(store.getters.getSearchResults.length); // Numero totale di ricette disponibili
@@ -44,19 +45,24 @@ export default {
         const totalPages = computed(() => Math.ceil(totalRecipes.value / itemsPerPage));
 
         // Preleva i dati paginati dallo store
-        const paginatedItems = computed(() => {
-            const start = (currentPage.value - 1) * itemsPerPage;
-            const end = start + itemsPerPage;
-            console.log('start', start)
-            console.log('end', end)
-            if (store.getters.getSearchResults) {
-                return store.getters.getSearchResults.slice(start, end);
-            } else {
-                return
-            }
-        });
+        const paginatedItems = ref()
 
-       
+        const fetchRecipeInfo = async () => {
+            const URL = `https://www.themealdb.com/api/json/v2/1/randomselection.php`;
+
+            try {
+                const res = await axios.get(URL);
+                paginatedItems.value = res.data.meals;
+                console.log('show res.data', recipe.value);
+            } catch (error) {
+                console.error('Errore nella chiamata Axios:', error);
+
+            }
+        };
+
+        onBeforeMount(() => {
+            fetchRecipeInfo()
+        })
 
         // Osserva i cambiamenti nel risultato della ricerca e aggiorna il conteggio totale
         watch(() => store.getters.getSearchResults, (newVal) => {
@@ -68,7 +74,7 @@ export default {
             currentPage,
             totalPages,
             paginatedItems,
-          
+
         };
     },
 };

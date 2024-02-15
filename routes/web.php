@@ -33,6 +33,22 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 });
+
+//Route::get('/favorite/{recipeId}', 'RecipeController@addFavoriteRecipe')->middleware('auth');
+//Route::any('/favorite/{recipe}', [RecipeController::class, 'addFavoriteRecipe'])->name('addFavoriteRecipe');
+// routes/api.php o routes/web.php
+
+
+
+
+Route::get('/show/{id}', function ($id) {
+   
+    return Inertia::render('Recipes/RecipeDetail', [
+        'recipe_id' => $id, // Passa i dettagli della ricetta al componente Vue (decommenta e adatta questa riga in base al tuo caso d'uso)
+    ]);
+})->middleware(['auth', 'verified'])->name('recipe.show');
+
 
 require __DIR__.'/auth.php';

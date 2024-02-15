@@ -1,22 +1,31 @@
 import { createStore } from 'vuex';
 
-export default createStore({
+// Definizione dello store Vuex
+const store = createStore({
   state() {
     return {
       searchResults: [],
+      selectedRecipe: {},
     };
   },
   mutations: {
     setSearchResults(state, results) {
       state.searchResults = results;
     },
+    setSelectedRecipe(state, recipe) {
+      state.selectedRecipe = recipe;
+    },
   },
   actions: {
-    updateSearchResults({ commit }, results) {
-      commit('setSearchResults', results);
+    getselectedRecipe({ commit }, recipe_id) {
+      // Implementazione dell'azione
     },
   },
   getters: {
     getSearchResults: state => state.searchResults,
+    getselectedRecipe: state => state.selectedRecipe,
   },
 });
+
+// Esportazione nominata dello store
+export { store };
