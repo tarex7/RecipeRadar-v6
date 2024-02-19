@@ -3,7 +3,7 @@
         <v-toolbar-title>Recipe radar</v-toolbar-title>
         
            <div class="px-5">
-            <a href="/">Preferiti</a>
+            <a href="/favorites">Favorites</a>
            </div>
         
         

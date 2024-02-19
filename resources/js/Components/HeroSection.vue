@@ -27,8 +27,9 @@
     background-image: url('C:\laravel\RecipeRadar-v6\public\build\assets\imgs\hero.jpg'); /* Aggiorna con il percorso dell'immagine di sfondo */
     background-size: cover;
     background-position: center;
-    height: 400px; 
+    height: 350px; 
     margin-top: 27px;
+    margin-bottom: 40px;
   }
   
   .hero-title {

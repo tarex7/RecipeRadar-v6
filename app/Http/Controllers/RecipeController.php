@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
 {
+
+public function favorite() {
+    
+}
+
     public function addFavoriteRecipe(Request $request)
     {
         $recipe = Recipe::updateOrCreate(
@@ -50,22 +55,22 @@ class RecipeController extends Controller
 
 
 
-        return response()->json(['message' => 'Ricetta aggiunta ai preferiti', 'recipe' => $recipe]);
+        return response()->json(['message' => 'Recipe added to favorites', 'recipe' => $recipe]);
     }
 
     public function checkIfFavorite($id)
     {
         $recipe = Recipe::where('recipe_id', $id)->first();
-
-        return $recipe->favorite;
+        if ($recipe != null) {
+            return $recipe->favorite;
+        } 
     }
 
-    public function removeFromFavorite($id) {
+    public function removeFromFavorite($id)
+    {
         $recipe = Recipe::where('recipe_id', $id)->first();
 
         $recipe->update(['favorite' => 0]);
-        return response()->json(['message' => 'Ricetta rimossa dai preferiti', 'recipe' => $recipe]);
-
-
+        return response()->json(['message' => 'Recipe removed from favorites', 'recipe' => $recipe]);
     }
 }

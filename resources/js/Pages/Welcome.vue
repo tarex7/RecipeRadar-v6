@@ -3,7 +3,18 @@ import DailyRecipes from '@/Components/DailyRecipes.vue';
 import HeroSection from '@/Components/HeroSection.vue';
 import List from '@/Components/List.vue';
 import Navbar from '@/Components/Navbar.vue';
-import SearchBar from '@/Components/SearchBar.vue';
+import {
+    computed,
+} from 'vue';
+
+import {
+    useStore
+} from 'vuex';
+const store = useStore();
+
+const searchIsActive = computed(() => {
+    return store.getters.getSearchResults.length
+})
 
 defineProps({
     canLogin: {
@@ -21,11 +32,9 @@ defineProps({
     <Head title="Dashboard" />
 
    <Navbar />
-
-    <HeroSection class="mt-5" />
-    
-    <List />
-    <DailyRecipes />
+<HeroSection class="my-5" />
+        <List v-if="searchIsActive"  />
+    <DailyRecipes v-else />
 
 </v-app>
 </template>

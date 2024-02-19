@@ -1,5 +1,5 @@
 <template>
-<v-row justify="center">
+<v-row justify="center mt-5">
     <v-col sm="2" class="mx-5" v-for="(recipe, index) in paginatedItems" :key="index">
 
         <a :href="`/show/${recipe.idMeal}`">
