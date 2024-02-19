@@ -4,7 +4,7 @@
     <v-snackbar v-model="snackbar.show" :color="snackbar.color" timeout="3000" :top="true">
      {{ snackbar.message }}
  </v-snackbar>
-<v-container>
+<v-container class="main">
     <v-row>
         <v-col cols="3"></v-col>
         <v-col cols="6">
@@ -46,6 +46,7 @@
                     <v-col cols="12">
                         <v-card outlined height="100%" class="mx-5">
                             <v-card-title class="headline">Ingredients</v-card-title>
+
                             <v-card-text>
                                 <div class="ingredients-grid">
                                     <div class="my-1 d-flex flex-column" v-for="(ingredient, index) in ingredientsList" :key="index">
@@ -102,7 +103,7 @@ const snackbar = ref({
 });
 
 const props = defineProps({
-    recipe_id: {
+    id: {
         type: Number,
         required: true,
     },
@@ -135,17 +136,21 @@ const ingredientsList = computed(() => {
 
 
 const fetchRecipeInfo = async () => {
-    const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${props.recipe_id}`;
+   
+    const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${props.id}`;
 
-    axios.post(`/api/checkIfFavorite/${props.recipe_id}`).then(res => isFavorite.value = res.data)
+    axios.post(`/api/checkIfFavorite/${props.id}`).then(res => {
+        isFavorite.value = res.data;
+        console.log('resdata',res)
+    })
     
     
     try {
         const res = await axios.get(URL);
         recipe.value = res.data.meals[0];
-        console.log('show res.data', recipe.value);
+       console.log('show res.data', recipe.value);
     } catch (error) {
-        console.error('Errore nella chiamata Axios:', error);
+       // console.error('Errore nella chiamata Axios:', error);
         snackbar.message = 'Errore nella chiamata Axios: ' + (error.response?.data?.message || error.message);
         snackbar.color = 'error'; // Puoi impostare dinamicamente il colore in base al tipo di errore
         snackbar.show = true;
@@ -153,7 +158,7 @@ const fetchRecipeInfo = async () => {
 };
 
 const toggleFavorite = () => {
-    
+    console.log('toggle')
     if (isFavorite.value == false) {
         console.log('isFav',isFavorite.value)
         const postData = {
@@ -184,7 +189,7 @@ const toggleFavorite = () => {
         isFavorite.value = true
     } else {
        
-        axios.post(`/api/removeFromFavorite/${props.recipe_id}`).then(res => {
+        axios.post(`/api/removeFromFavorite/${props.id}`).then(res => {
             snackbar.value.show = true;
             snackbar.value.message = res.data.message; 
             snackbar.value.color = 'error';
@@ -204,6 +209,9 @@ const toggleFavorite = () => {
 </script>
 
 <style>
+.main {
+    margin-top: 80px;
+}
 .ingredients-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

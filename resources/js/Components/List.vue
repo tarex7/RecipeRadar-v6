@@ -2,12 +2,13 @@
 <v-row justify="center mt-5">
     <v-col sm="2" class="mx-5" v-for="(recipe, index) in paginatedItems" :key="index">
 
-        <a :href="`/show/${recipe.idMeal}`">
-            <v-card>
+        <router-link :to="`/show/${recipe.idMeal}`" custom v-slot="{ navigate }">
+            <v-card @click="navigate">
                 <v-img :src="recipe.strMealThumb" class="white--text align-end" height="100%"></v-img>
+                <v-card-text class="white--text py-2 gradient-overlay">{{ recipe.strMeal }}</v-card-text>
             </v-card>
-            <v-card-text class="white--text py-2  gradient-overlay">{{ recipe.strMeal }}</v-card-text>
-        </a>
+        </router-link>
+        
     </v-col>
 </v-row>
 <v-pagination v-model="currentPage" :length="totalPages"></v-pagination>

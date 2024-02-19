@@ -16,44 +16,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('AppLayout', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/{any}', function () {
+    return view('app'); 
+})->where('any', '.*')->middleware('auth');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-//Route::get('/favorites', 'RecipeController@favorites')->middleware('auth');
-//Route::any('/favorite/{recipe}', [RecipeController::class, 'addFavoriteRecipe'])->name('addFavoriteRecipe');
-// routes/api.php o routes/web.php
-
-
-
-
-Route::get('/show/{id}', function ($id) {
-
-    return Inertia::render('Recipes/RecipeDetail', [ 'recipe_id' => $id]);
-}
-    )->middleware(['auth', 'verified'])->name('recipe.show');
-    
-
-Route::get('/favorites', function () {
-
-    return Inertia::render('Recipes/Favorites');
-}
-    )->middleware(['auth', 'verified'])->name('recipe.show');
-
-
-require __DIR__ . '/auth.php';
