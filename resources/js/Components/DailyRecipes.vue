@@ -10,7 +10,6 @@
         </a>
     </v-col>
 </v-row>
-<v-pagination v-model="currentPage" :length="totalPages"></v-pagination>
 </template>
 
 <script>

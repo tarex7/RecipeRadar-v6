@@ -18,20 +18,12 @@ import {
     ref,
     computed,
     watch,
-    defineProps
+   
 } from 'vue';
 import {
     useStore
 } from 'vuex';
-import {
-    Link
-} from '@inertiajs/vue3';
-// import {
-//     router
-// } from '@inertiajs/vue3';
-// const navigateTo = (routeName) => {
-//     router.visit(route(routeName));
-// }
+
 export default {
     name: 'RecipeCardsWithPagination',
     setup() {
@@ -47,8 +39,7 @@ export default {
         const paginatedItems = computed(() => {
             const start = (currentPage.value - 1) * itemsPerPage;
             const end = start + itemsPerPage;
-            console.log('start', start)
-            console.log('end', end)
+         
             if (store.getters.getSearchResults) {
                 return store.getters.getSearchResults.slice(start, end);
             } else {

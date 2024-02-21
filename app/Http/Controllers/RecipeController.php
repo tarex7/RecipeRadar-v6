@@ -69,8 +69,13 @@ public function favorite() {
     public function removeFromFavorite($id)
     {
         $recipe = Recipe::where('recipe_id', $id)->first();
-
-        $recipe->update(['favorite' => 0]);
-        return response()->json(['message' => 'Recipe removed from favorites', 'recipe' => $recipe]);
+    
+        if ($recipe) {
+            $recipe->delete();
+            return response()->json(['message' => 'Recipe removed from favorites']);
+        } else {
+            return response()->json(['message' => 'Recipe not found'],  404);
+        }
     }
+    
 }

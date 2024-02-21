@@ -1,5 +1,5 @@
 <template>
- <v-app >
+ <v-app class="main" >
     <Navbar />
     <v-snackbar v-model="snackbar.show" :color="snackbar.color" timeout="3000" :top="true">
      {{ snackbar.message }}
@@ -113,14 +113,16 @@ const ingredientsList = computed(() => {
     const ingredients = []
     const ingredientsTotal = [];
 
-    Object.keys(recipe.value).forEach(value => {
-        if (value.slice(0, 13) == 'strIngredient') {
+    Object.keys(recipe.value).forEach((value, cont) => {
+     
+        if (value.slice(0, 13) == 'strIngredient' && recipe.value[value] != null) {
             ingredientsTotal.push(value)
         }
     })
 
     for (let i = 0; i < ingredientsTotal.length; i++) {
         const name = recipe.value[ingredientsTotal[i]];
+        
         const measure = recipe.value[`strMeasure${i+1}`];
         if (recipe.value[ingredientsTotal[i]] != "")
             ingredients.push({
@@ -128,7 +130,6 @@ const ingredientsList = computed(() => {
                 'measure': measure
             })
     }
-
     return ingredients;
 });
 
@@ -212,5 +213,7 @@ const toggleFavorite = () => {
 .bg-red {
     color: red; 
 }
-
+.main {
+    margin-top: 80px;
+}
 </style>
