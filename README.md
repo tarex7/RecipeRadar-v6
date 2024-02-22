@@ -1,3 +1,33 @@
+# Recipe Radar
+
+Recipe Radar è un portale web dedicato agli appassionati di cucina, che offre la possibilità di cercare, scoprire e salvare le tue ricette preferite da una vasta collezione globale.
+
+## Indice
+
+- [Introduzione](#introduzione)
+- [Tecnologie Utilizzate](#tecnologie-utilizzate)
+- [Installazione](#installazione)
+- [Uso](#uso)
+- [Contribuire](#contribuire)
+- [Licenza](#licenza)
+- [Contatti](#contatti)
+
+## Introduzione
+
+Recipe Radar nasce dalla passione per la cucina e dall'idea di creare un luogo dove trovare facilmente ispirazione per i tuoi pasti quotidiani. Grazie alla nostra piattaforma, puoi facilmente navigare tra migliaia di ricette, salvare i tuoi piatti preferiti e condividere le tue scoperte culinarie.
+
+## Tecnologie Utilizzate
+
+Il sito utilizza le seguenti tecnologie:
+
+- [Laravel](https://laravel.com/): per il back-end e la gestione del database.
+- [Vue.js](https://vuejs.org/): per un'interfaccia utente dinamica e reattiva.
+- [Inertia.js](https://inertiajs.com/): per integrare Laravel con Vue.js senza la necessità di un'API separata.
+- [Vuex](https://vuex.vuejs.org/): per la gestione dello stato globale nell'app Vue.js.
+- [Vuetify](https://vuetifyjs.com/): un framework UI per Vue.js basato sui principi del Material Design.
+
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
